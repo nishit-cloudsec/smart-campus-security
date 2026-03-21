@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Security Reports | Smart Campus</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:#0b1220;
+    color:#cbd5e1;
+}
+
+/* Cyber grid background */
+body::before{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-image:
+    linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
+    background-size:40px 40px;
+    z-index:-1;
+}
+
+/* Header */
+header{
+    background:#111827;
+    color:#00e5ff;
+    padding:1rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(0,255,255,0.2);
+}
+
+header h1{
+    font-size:1.4rem;
+    text-shadow:0 0 10px #00e5ff;
+}
+
+/* Navbar */
+nav a{
+    color:#94a3b8;
+    text-decoration:none;
+    margin-left:1.5rem;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:#00e5ff;
+}
+
+/* Main container */
+main{
+    max-width:1100px;
+    margin:2rem auto;
+    padding:2rem;
+    background:#111827;
+    border-radius:10px;
+    border:1px solid rgba(0,255,255,0.2);
+    box-shadow:0 0 15px rgba(0,255,255,0.1);
+}
+
+/* Title */
+h2{
+    margin-bottom:1rem;
+    color:#00e5ff;
+}
+
+/* Button */
+.scan-btn{
+    padding:8px 16px;
+    border:1px solid #00e5ff;
+    background:transparent;
+    color:#00e5ff;
+    border-radius:6px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-bottom:15px;
+}
+
+.scan-btn:hover{
+    background:#00e5ff;
+    color:#000;
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#020617;
+    color:#00e5ff;
+}
+
+td,th{
+    padding:12px 15px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+tr:hover{
+    background:#1e293b;
+}
+
+/* Risk badges */
+
+.high{
+    color:#ef4444;
+    font-weight:bold;
+}
+
+.medium{
+    color:#f59e0b;
+    font-weight:bold;
+}
+
+.low{
+    color:#22c55e;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Smart Campus Security - Reports</h1>
+
+<nav>
+<a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+<a href="{{ url_for('user_dashboard') }}">Users</a>
+<a href="{{ url_for('report_page') }}">Reports</a>
+<a href="{{ url_for('profile') }}">Profile</a>
+<a href="{{ url_for('logout') }}">Logout</a>
+</nav>
+</header>
+
+<main>
+
+<h2>Network Scan Reports</h2>
+
+<button class="scan-btn">Run New Scan</button>
+
+<table>
+
+<thead>
+<tr>
+<th>Report ID</th>
+<th>Device Name</th>
+<th>Asset IP</th>
+<th>Date</th>
+<th>Open Port</th>
+<th>Service</th>
+<th>Risk Level</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>R001</td>
+<td>Lab-PC-01</td>
+<td>192.168.1.10</td>
+<td>05-03-2026</td>
+<td>22</td>
+<td>SSH</td>
+<td class="high">High</td>
+</tr>
+
+<tr>
+<td>R002</td>
+<td>Web Server</td>
+<td>192.168.1.15</td>
+<td>05-03-2026</td>
+<td>80</td>
+<td>HTTP</td>
+<td class="medium">Medium</td>
+</tr>
+
+<tr>
+<td>R003</td>
+<td>Secure Gateway</td>
+<td>192.168.1.20</td>
+<td>05-03-2026</td>
+<td>443</td>
+<td>HTTPS</td>
+<td class="low">Low</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</main>
+
+</body>
+</html>

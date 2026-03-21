@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard | Smart Campus Security</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:#0b1220;
+    color:#cbd5e1;
+}
+
+/* Cyber grid background */
+body::before{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-image:
+    linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
+    background-size:40px 40px;
+    z-index:-1;
+}
+
+/* Header */
+header{
+    background:#111827;
+    color:#00e5ff;
+    padding:1rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(0,255,255,0.2);
+}
+
+header h1{
+    font-size:1.4rem;
+    text-shadow:0 0 10px #00e5ff;
+}
+
+/* Navbar */
+nav a{
+    color:#94a3b8;
+    text-decoration:none;
+    margin-left:1.5rem;
+    font-weight:500;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#00e5ff;
+}
+
+/* Main container */
+main{
+    max-width:1100px;
+    margin:2rem auto;
+    padding:2rem;
+    background:#111827;
+    border-radius:10px;
+    border:1px solid rgba(0,255,255,0.2);
+    box-shadow:0 0 15px rgba(0,255,255,0.1);
+}
+
+/* Section title */
+h2{
+    margin-bottom:1rem;
+    color:#00e5ff;
+}
+
+/* Button */
+.add-btn{
+    padding:8px 16px;
+    border:1px solid #00e5ff;
+    background:transparent;
+    color:#00e5ff;
+    border-radius:6px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.add-btn:hover{
+    background:#00e5ff;
+    color:#000;
+    box-shadow:0 0 10px #00e5ff;
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th{
+    background:#020617;
+    color:#00e5ff;
+}
+
+td,th{
+    padding:12px 15px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+tr:hover{
+    background:#1e293b;
+}
+
+/* Status badges */
+.status-active{
+    color:#22c55e;
+    font-weight:bold;
+}
+
+.status-inactive{
+    color:#ef4444;
+    font-weight:bold;
+}
+
+/* Dashboard Cards */
+
+.dashboard-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.card{
+    background:#020617;
+    border:1px solid rgba(0,255,255,0.2);
+    border-radius:10px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 0 10px rgba(0,255,255,0.08);
+}
+
+.card h3{
+    color:#94a3b8;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:28px;
+    color:#00e5ff;
+    font-weight:bold;
+}
+
+/* Action buttons */
+.actions a{
+    text-decoration:none;
+    padding:4px 8px;
+    border-radius:4px;
+    margin-right:6px;
+    font-size:14px;
+}
+
+.edit{
+    color:#38bdf8;
+}
+
+.delete{
+    color:#ef4444;
+}
+
+.actions a:hover{
+    text-decoration:underline;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Smart Campus Security - Admin Panel</h1>
+
+    <nav>
+        <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('user_dashboard') }}">Users</a>
+        <a href="{{ url_for('report_page') }}">Reports</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+</header>
+
+<main>
+<div class="dashboard-cards">
+
+<div class="card">
+<h3>Total Devices</h3>
+<p>{{ total_devices }}</p>
+</div>
+
+<div class="card">
+<h3>Active Devices</h3>
+<p>{{ active_devices }}</p>
+</div>
+
+<div class="card">
+<h3>Inactive Devices</h3>
+<p>{{ inactive_devices }}</p>
+</div>
+
+<div class="card">
+<h3>High Risk Alerts</h3>
+<p>{{ high_risk }}</p>
+</div>
+
+</div>
+<h2>Device Management</h2>
+
+<a href="{{ url_for('add_asset') }}">
+<button class="add-btn">+ Add New Device</button>
+</a>
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Device Name</th>
+<th>Type</th>
+<th>IP Address</th>
+<th>MAC Address</th>
+<th>Location</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for asset in assets %}
+
+<tr>
+<td>{{ asset.device_name }}</td>
+<td>{{ asset.device_type }}</td>
+<td>{{ asset.ip_address }}</td>
+<td>{{ asset.mac_address }}</td>
+<td>{{ asset.location }}</td>
+
+<td>
+{% if asset.status == "active" %}
+<span class="status-active">Active</span>
+{% else %}
+<span class="status-inactive">Inactive</span>
+{% endif %}
+</td>
+
+<td class="actions">
+<a class="edit" href="{{ url_for('edit_asset', asset_id=asset.id) }}">Edit</a>
+<a class="delete" href="{{ url_for('delete_asset', asset_id=asset.id) }}"
+onclick="return confirm('Are you sure you want to delete this device?')">
+Delete
+</a>
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+<td colspan="8" style="text-align:center;">
+No devices found. Click "Add New Device" to register one.
+</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</main>
+
+</body>
+</html>
