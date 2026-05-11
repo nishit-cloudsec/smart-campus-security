@@ -2,42 +2,42 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Security Reports | Smart Campus</title>
+        <title>Security Report | Smart Campus</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
     </head>
     <body>
         <header>
             <h1>Smart Campus Security - Report</h1>
 
-            <nav> 
-                <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
-                <a href="{{ url_for('user_dashboard') }}">View as Users</a>
-                <a href="{{ url_for('report_page') }}">Report</a>
+            <nav>
+                <a href="{{ url_for('user_dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('user_report') }}">Scan Report</a>
                 <a href="{{ url_for('profile') }}">Profile</a>
                 <a href="{{ url_for('logout') }}">Logout</a>
             </nav>
-
         </header>
-
+        
         <main>
 
-            <h2>Network Scan Report</h2> 
-            <form method="GET" action="{{ url_for('report_page') }}">
-                <button class="scan-btn">🔍 Run Live Scan</button>
+            <h2>Network Scan Report</h2>
+
+            <form method="GET" action="{{ url_for('user_report') }}">
+                <button class="scan-btn">Run Scan</button>
             </form>
+
             <table>
                 <thead>
                     <tr>
                         <th>Report ID</th>
                         <th>Device Name</th>
                         <th>Asset IP</th>
-                        <th>Status</th>
                         <th>Date</th>
                         <th>Open Port</th>
                         <th>Service</th>
                         <th>Risk Level</th>
                     </tr>
                 </thead>
+
                 <tbody>
 
                     {% for report in reports %}
@@ -49,15 +49,13 @@
                         <td>{{ report.date }}</td>
                         <td>{{ report.port }}</td>
                         <td>{{ report.service }}</td>
-                        <td class="{% if report.status == 'Online' %}online{% else %}offline{% endif %}">
-                            {{ report.status }}
-                        </td>
-                        
+
                         <td class="
                             {% if report.risk == 'High' %}high
                             {% elif report.risk == 'Medium' %}medium
                             {% else %}low
-                            {% endif %}">
+                            {% endif %}
+                        ">
                             {{ report.risk }}
                         </td>
                     </tr>
@@ -65,7 +63,7 @@
                     {% else %}
 
                     <tr>
-                        <td colspan="8" style="text-align:center;">
+                        <td colspan="7" style="text-align:center;">
                             No scan data available. Run a scan.
                         </td>
                     </tr>

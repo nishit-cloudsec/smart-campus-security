@@ -4,51 +4,56 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Create Account | Smart Campus</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
     </head>
 
-<body>
+    <body>
+        <div class="container">
+            <div class="form-box">
+                <h2>Create Your Account</h2>
+                <p class="subtitle">Sign up to access Smart Campus Security System</p>
 
-<div class="container">
+                 {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div style="background:red;color:white;padding:10px;margin-bottom:10px;">
+                            {% for msg in messages %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% endwith %}
 
-    <div class="form-box">
-        <h2>Create Your Account</h2>
-        <p class="subtitle">Sign up to access Smart Campus Security System</p>
+                <form id="signupForm" method="POST" action="/signup">
 
-        <form id="signupForm" method="POST" action="/signup">
+                    <div class="form-group">
+                        <label for="username">Full Name</label>
+                        <input type="text" id="username" name="username" placeholder="Enter your full name" required>
+                    </div>
 
-            <div class="form-group">
-                <label for="username">Full Name</label>
-                <input type="text" id="username" name="username" placeholder="Enter your full name" required>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pass">Password</label>
+                        <input type="password" id="pass" name="password" placeholder="Create password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    </div>
+
+                    <button type="submit" class="btn">Create Account</button>
+
+                </form>
+
+                <p class="switch-text">
+                    Already have an account?
+                    <a href="{{ url_for('login') }}">Login here</a>
+                </p>
             </div>
-
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="pass">Password</label>
-                <input type="password" id="pass" name="password" placeholder="Create password" required>
-            </div>
-
-            <div class="form-group">
-                <label for="confirm_pass">Confirm Password</label>
-                <input type="password" id="confirm_pass" name="confirm_password" placeholder="Re-enter password" required>
-            </div>
-
-            <button type="submit" class="btn">Create Account</button>
-
-        </form>
-
-        <p class="login-link">
-            Already have an account?
-            <a href="{{ url_for('login') }}">Login here</a>
-        </p>
-
-    </div>
-
-</div>
-
-</body>
+        </div>
+    </body>
 </html>

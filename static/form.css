@@ -1,0 +1,99 @@
+/* ===== FORM PAGES ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* ===== GLOBAL RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+/* ===== GLOBAL BODY ===== */
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#060c18;
+
+    background-image:
+    linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
+
+    background-size:40px 40px;
+}
+
+/* Card */
+.container{
+    width:100%;
+    max-width:500px;
+    padding:30px;
+    border-radius:14px;
+    background:rgba(8,18,40,0.95);
+    border:1px solid rgba(0,255,255,0.2);
+    color:white;
+    box-shadow:0 0 25px rgba(0,255,255,0.1);
+}
+
+/* Title */
+h2{
+    text-align:center;
+    color:#00eaff;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    font-size:12px;
+    color:#94a3b8;
+    margin-bottom:20px;
+}
+
+/* Form layout */
+form{
+    display:flex;
+    flex-direction:column;
+}
+
+label{
+    margin-top:10px;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border-radius:8px;
+    border:1px solid #1d2f4d;
+    background:#061226;
+    color:white;
+}
+
+/* Button */
+.btn{
+    margin-top:20px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#00eaff;
+    color:#061226;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn:hover{
+    box-shadow:0 0 15px #00eaff;
+}
+
+/* Cancel */
+.switch-text{
+    margin-top:15px;
+    text-align:center;
+}
+
+.switch-text a{
+    color:#00eaff;
+    text-decoration:none;
+}

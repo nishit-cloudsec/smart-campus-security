@@ -1,190 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Profile | Smart Campus Security</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Profile | Smart Campus Security</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+    </head>
 
-<style>
+    <body>
+        <div class="profile-card">
+            <!-- Dynamic Letter Avatar -->
+            <div class="avatar avatar-{{ username[0]|lower }}">
+                {{ username[0]|upper }}
+            </div>
 
-body{
-    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-    background:#050c18;
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:#cbd5e1;
+            <h2>User Profile</h2>
 
-    background-image:
-    linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
-    background-size:40px 40px;
-}
+            <div class="info">
+                <strong>Username:</strong> {{ username }}
+            </div>
 
-/* Profile Card */
+            <div class="info">
+                <strong>Email:</strong> {{ email }}
+            </div>
 
-.profile-card{
-    width:420px;
-    padding:35px;
-    background:#0b1628;
-    border-radius:14px;
-    border:1px solid rgba(0,255,255,0.15);
-    box-shadow:0 0 20px rgba(0,255,255,0.08);
-    text-align:center;
-}
+            <div class="info">
+                <strong>Role:</strong>
+                {% if role == 'admin' %}
+                <span class="role-admin">Admin</span>
+                {% else %}
+                <span class="role-user">User</span>
+                {% endif %}
+            </div>
 
-/* Avatar */
+            {% if role == 'admin' %}
+            <a class="btn dashboard-btn" href="/admin">Back Dashboard</a>
+            {% else %}
+            <a class="btn dashboard-btn" href="/user">Back Dashboard</a>
+            {% endif %}
 
-.avatar{
-    width:85px;
-    height:85px;
-    border-radius:50%;
-    color:#001018;
-    font-size:32px;
-    font-weight:bold;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:0 auto 15px auto;
-    box-shadow:0 0 15px rgba(0,234,255,0.4);
-}
+            <br>
 
-/* Letter-based colors */
-
-.avatar-a{ background:#ef4444; }
-.avatar-b{ background:#f97316; }
-.avatar-c{ background:#facc15; }
-.avatar-d{ background:#22c55e; }
-.avatar-e{ background:#14b8a6; }
-.avatar-f{ background:#3b82f6; }
-.avatar-g{ background:#6366f1; }
-.avatar-h{ background:#8b5cf6; }
-.avatar-i{ background:#d946ef; }
-.avatar-j{ background:#ec4899; }
-.avatar-k{ background:#f43f5e; }
-.avatar-l{ background:#10b981; }
-.avatar-m{ background:#0ea5e9; }
-.avatar-n{ background:#6366f1; }
-.avatar-o{ background:#84cc16; }
-.avatar-p{ background:#eab308; }
-.avatar-q{ background:#f97316; }
-.avatar-r{ background:#ef4444; }
-.avatar-s{ background:#22c55e; }
-.avatar-t{ background:#06b6d4; }
-.avatar-u{ background:#3b82f6; }
-.avatar-v{ background:#8b5cf6; }
-.avatar-w{ background:#d946ef; }
-.avatar-x{ background:#ec4899; }
-.avatar-y{ background:#f43f5e; }
-.avatar-z{ background:#14b8a6; }
-
-/* Title */
-
-.profile-card h2{
-    color:#00eaff;
-    margin-bottom:25px;
-}
-
-/* Info rows */
-
-.info{
-    text-align:left;
-    margin:10px 0;
-    padding:8px;
-    border-bottom:1px solid rgba(255,255,255,0.08);
-}
-
-.info strong{
-    color:#00eaff;
-}
-
-/* Role badge */
-
-.role-admin{
-    color:#22c55e;
-    font-weight:bold;
-}
-
-.role-user{
-    color:#38bdf8;
-    font-weight:bold;
-}
-
-/* Buttons */
-
-.btn{
-    display:inline-block;
-    margin-top:18px;
-    padding:10px 20px;
-    text-decoration:none;
-    border-radius:8px;
-    font-weight:bold;
-    transition:0.3s;
-}
-
-.dashboard-btn{
-    background:#00eaff;
-    color:#001018;
-}
-
-.dashboard-btn:hover{
-    background:#22f0ff;
-    box-shadow:0 0 10px rgba(0,234,255,0.6);
-}
-
-.logout-btn{
-    background:#ef4444;
-    color:white;
-    margin-top:12px;
-}
-
-.logout-btn:hover{
-    background:#dc2626;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="profile-card">
-
-<!-- 🔥 Dynamic Letter Avatar -->
-<div class="avatar avatar-{{ username[0]|lower }}">
-    {{ username[0]|upper }}
-</div>
-
-<h2>User Profile</h2>
-
-<div class="info">
-<strong>Username:</strong> {{ username }}
-</div>
-
-<div class="info">
-<strong>Email:</strong> {{ email }}
-</div>
-
-<div class="info">
-<strong>Role:</strong>
-{% if role == 'admin' %}
-<span class="role-admin">Admin</span>
-{% else %}
-<span class="role-user">User</span>
-{% endif %}
-</div>
-
-{% if role == 'admin' %}
-<a class="btn dashboard-btn" href="/admin">Go to Admin Dashboard</a>
-{% else %}
-<a class="btn dashboard-btn" href="/user">Go to User Dashboard</a>
-{% endif %}
-
-<br>
-
-<a class="btn logout-btn" href="/logout">Logout</a>
-
-</div>
-
-</body>
+            <a class="btn logout-btn" href="/logout">Logout</a>
+        </div>
+    </body>
 </html>

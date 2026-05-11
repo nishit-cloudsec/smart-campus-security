@@ -1,190 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>User Dashboard | Smart Campus Security</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>User Dashboard | Smart Campus Security</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    </head>
+    <body>
 
-<style>
+        <header>
+            <h1>Smart Campus Security - User Dashboard</h1>
+            <nav>
+                <a href="{{ url_for('user_report') }}" 
+                    class="{% if active_page == 'user_report' %}active{% endif %}">
+                        Scan Report
+                </a>
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+                <a href="{{ url_for('profile') }}" 
+                    class="{% if active_page == 'profile' %}active{% endif %}">
+                        Profile
+                </a>
 
-body{
-    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-    background:#0b1220;
-    color:#cbd5e1;
-}
+                <a href="{{ url_for('logout') }}">
+                    Logout
+                </a>
+            </nav>
+        </header>
 
-/* Cyber grid background */
-body::before{
-    content:"";
-    position:fixed;
-    width:100%;
-    height:100%;
-    background-image:
-    linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
-    background-size:40px 40px;
-    z-index:-1;
-}
+        <main>
 
-/* Header */
-header{
-    background:#111827;
-    color:#00e5ff;
-    padding:1rem 2rem;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:1px solid rgba(0,255,255,0.2);
-}
+            {% if session.get('role') == 'admin' %}
+            <div class="admin-banner">
+                <span>Admin viewing as User</span>
 
-header h1{
-    font-size:1.4rem;
-    text-shadow:0 0 10px #00e5ff;
-}
+                <a href="{{ url_for('back_to_admin') }}" class="back-btn">
+                    ⬅ Back to Admin
+                </a>
+            </div>
+            {% endif %}
 
-/* Navbar */
-nav a{
-    color:#94a3b8;
-    text-decoration:none;
-    margin-left:1.5rem;
-    font-weight:500;
-}
+            <h2>Campus Network Devices</h2>
 
-nav a:hover{
-    color:#00e5ff;
-}
+            <div class="summary">
+                Total Devices: {{ assets|length }}
+            </div>
 
-/* Main container */
-main{
-    max-width:1100px;
-    margin:2rem auto;
-    padding:2rem;
-    background:#111827;
-    border-radius:10px;
-    border:1px solid rgba(0,255,255,0.2);
-    box-shadow:0 0 15px rgba(0,255,255,0.1);
-}
+            <table>
 
-/* Title */
-h2{
-    margin-bottom:1rem;
-    color:#00e5ff;
-}
+                <thead>
+                    <tr>
+                        <th>Device Name</th>
+                        <th>Device Type</th>
+                        <th>IP Address</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
-/* Device summary */
-.summary{
-    margin-bottom:20px;
-    font-size:15px;
-    color:#94a3b8;
-}
+                <tbody>
 
-/* Table */
-table{
-    width:100%;
-    border-collapse:collapse;
-}
+                    {% for asset in assets %}
 
-th{
-    background:#020617;
-    color:#00e5ff;
-}
+                    <tr>
+                        <td>{{ asset.device_name }}</td>
+                        <td>{{ asset.device_type }}</td>
+                        <td>{{ asset.ip_address }}</td>
+                        <td>{{ asset.location }}</td>
 
-td,th{
-    padding:12px 15px;
-    border-bottom:1px solid rgba(255,255,255,0.08);
-}
+                        <td>
+                            {% if asset.status == "active" %}
+                            <span class="status-active">Active</span>
+                            {% else %}
+                            <span class="status-inactive">Inactive</span>
+                            {% endif %}
+                        </td>
+                    </tr>
 
-tr:hover{
-    background:#1e293b;
-}
+                    {% else %}
 
-/* Status badges */
+                    <tr>
+                        <td colspan="5" style="text-align:center;">
+                            No devices available in the network.
+                        </td>
+                    </tr>
 
-.status-active{
-    color:#22c55e;
-    font-weight:bold;
-}
+                    {% endfor %}
 
-.status-inactive{
-    color:#ef4444;
-    font-weight:bold;
-}
-
-</style>
-</head>
-
-<body>
-
-<header>
-<h1>Smart Campus Security - User Dashboard</h1>
-
-<nav>
-<a href="#">Dashboard</a>
-<a href="{{ url_for('profile') }}">Profile</a>
-<a href="{{ url_for('logout') }}">Logout</a>
-</nav>
-</header>
-
-<main>
-
-<h2>Campus Network Devices</h2>
-
-<div class="summary">
-Total Devices: {{ assets|length }}
-</div>
-
-<table>
-
-<thead>
-<tr>
-<th>Device Name</th>
-<th>Device Type</th>
-<th>IP Address</th>
-<th>Location</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody>
-
-{% for asset in assets %}
-
-<tr>
-<td>{{ asset.device_name }}</td>
-<td>{{ asset.device_type }}</td>
-<td>{{ asset.ip_address }}</td>
-<td>{{ asset.location }}</td>
-
-<td>
-{% if asset.status == "active" %}
-<span class="status-active">Active</span>
-{% else %}
-<span class="status-inactive">Inactive</span>
-{% endif %}
-</td>
-
-</tr>
-
-{% else %}
-
-<tr>
-<td colspan="5" style="text-align:center;">
-No devices available in the network.
-</td>
-</tr>
-
-{% endfor %}
-
-</tbody>
-
-</table>
-
-</main>
-
-</body>
+                </tbody>
+            </table>
+        </main>
+    </body>
 </html>

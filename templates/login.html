@@ -1,53 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Smart Campus</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login | Smart Campus</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+    </head>
 
-<body>
+    <body>
 
-    <div class="container">
+        <div class="container">
 
-        <h2>Welcome Back</h2>
-        <p class="subtitle">Login to your Smart Campus account</p>
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Login to your Smart Campus account</p>
 
-        {% if error %}
-        <p style="color:red; text-align:center; margin-bottom:10px;">
-            {{ error }}
-        </p>
-        {% endif %}
+            {% if error %}
+            <p style="color:red; text-align:center; margin-bottom:10px;">
+                {{ error }}
+            </p>
+            {% endif %}
 
-        <form action="/login" method="POST">
+            <form action="/login" method="POST">
 
-            <label for="username">Username</label>
-            <input 
-                type="text" 
-                id="username"
-                name="username" 
-                placeholder="Enter your username" 
-                required>
+                <label for="username">Username</label>
+                <input 
+                    type="text" 
+                    id="username"
+                    name="username" 
+                    placeholder="Enter your username" 
+                    required>
 
-            <label for="password">Password</label>
-            <input 
-                type="password" 
-                id="password"
-                name="password" 
-                placeholder="Enter your password" 
-                required>
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password"
+                    name="password" 
+                    placeholder="Enter your password" 
+                    required>
 
-            <button type="submit" class="btn">Login</button>
+                <button type="submit" class="btn">Login</button>
 
-        </form>
+            </form>
 
-        <p class="switch-text">
-            Don't have an account? 
-            <a href="{{ url_for('signup') }}">Create one here</a>
-        </p>
+            <!-- 🔥 DEMO CREDENTIALS ADDED HERE -->
+            <div class="demo-cred-box">
+                <p class="demo-title">Demo credentials:</p>
+                <p>Admin - Admin123</p>
+                <p>User - User123</p>
+            </div>
+            
+            <p class="switch-text">
+                Don't have an account? 
+                <a href="{{ url_for('signup') }}">Create one here</a>
+            </p>
 
-    </div>
+        </div>
 
-</body>
+    </body>
 </html>
