@@ -43,30 +43,47 @@
                     {% for report in reports %}
 
                     <tr>
+
                         <td>{{ report.id }}</td>
+
                         <td>{{ report.device_name }}</td>
+
                         <td>{{ report.ip }}</td>
-                        <td>{{ report.date }}</td>
-                        <td>{{ report.port }}</td>
-                        <td>{{ report.service }}</td>
+
+                        <!-- STATUS -->
                         <td class="{% if report.status == 'Online' %}online{% else %}offline{% endif %}">
                             {{ report.status }}
                         </td>
-                        
+
+                        <!-- DATE -->
+                        <td>{{ report.date }}</td>
+
+                        <!-- OPEN PORT -->
+                        <td>{{ report.port }}</td>
+
+                        <!-- SERVICE -->
+                        <td>{{ report.service }}</td>
+
+                        <!-- RISK -->
                         <td class="
-                            {% if report.risk == 'High' %}high
-                            {% elif report.risk == 'Medium' %}medium
-                            {% else %}low
-                            {% endif %}">
+                            {% if report.risk == 'High' %}
+                                high
+                            {% elif report.risk == 'Medium' %}
+                                medium
+                            {% else %}
+                                low
+                            {% endif %}
+                        ">
                             {{ report.risk }}
                         </td>
+
                     </tr>
 
                     {% else %}
 
                     <tr>
                         <td colspan="8" style="text-align:center;">
-                            No scan data available. Run a scan.
+                            No scan data available. Run Live Scan.
                         </td>
                     </tr>
 

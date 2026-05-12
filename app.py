@@ -345,17 +345,21 @@ def report_page():
             print("Results:", scan_results)
 
             # If no ports found
+            # If no ports found
             if not scan_results:
 
                 reports.append({
                     "id": f"R{str(report_id).zfill(3)}",
                     "device_name": asset['device_name'],
                     "ip": ip,
+                    "status": status,
                     "date": datetime.now().strftime("%d-%m-%Y"),
-                    "port": "-",
-                    "service": "No Open Ports",
-                    "risk": "Low",
-                    "status": status
+
+                    # FIXED VALUES
+                    "port": "No Open Ports",
+                    "service": "-",
+
+                    "risk": "Low"
                 })
 
                 report_id += 1
