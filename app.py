@@ -8,6 +8,7 @@ from flask import flash
 from scanner import scan_ports
 from monitor import get_device_status
 from risk_analyzer import get_risk
+from datetime import datetime
 
 # Utility functions for validation
 def is_valid_ip(ip):
@@ -205,7 +206,7 @@ def user_report():
             "id": f"R{str(report_id).zfill(3)}",
             "device_name": asset['device_name'],
             "ip": asset['ip_address'],
-            "date": "24-03-2026",
+            "date": datetime.now().strftime("%d-%m-%Y"),
             "port": port,
             "service": service,
             "risk": risk
